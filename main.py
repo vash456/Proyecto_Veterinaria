@@ -1,5 +1,5 @@
 from connection import DAO
-import functions
+import functions_1
 
 def main_menu():
     """Display the main menu."""
@@ -120,7 +120,7 @@ def execute_option(option, menu):
     dao = DAO()
     
     if option == 1:
-        table, dict_register = functions.request_info(menu)
+        table, dict_register = functions_1.request_info(menu)
         dao.register(table, dict_register)
     elif option == 2:
         # Actualizar
