@@ -1,13 +1,16 @@
 from Servicio import Servicio
 from connection import DAO
+from tabulate import tabulate
 
+def showTable(listTable):
+    print("\n" + tabulate(listTable[1:], headers=listTable[0]) + "\n")
 
+    
 dao = DAO()
 
 # consultar registros de la tabla
 customers = dao.listTable("customer")
-for customer in customers:
-    print(customer)
+showTable(customers)
 
 # insertar registro nuevo en la tabla
 # customer = []

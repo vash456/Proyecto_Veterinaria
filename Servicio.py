@@ -20,4 +20,6 @@ class Servicio:
 
         dao.registerData(data, sql)
         
-        
+    def tableServices(self):
+        dao = DAO()
+        return dao.listTable("services")
