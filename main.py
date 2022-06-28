@@ -41,8 +41,8 @@ def execute_option_main(option_main):
         try:
             menu = "cliente"
             sub_menu(menu)
-        except:
-            print("Ocurrió un error...")
+        except Exception as ex:
+            print("Ocurrió un error...", ex)
     elif option_main == 2:
         try:
             menu = "mascota"
@@ -60,8 +60,8 @@ def execute_option_main(option_main):
             menu = "servicio"
             # Generar factura automáticamente
             sub_menu(menu)            
-        except:
-            print("Ocurrió un error...")
+        except Exception as ex:
+            print("Ocurrió un error...", ex)
     elif option_main == 5:
         try:
             display_history()
@@ -126,7 +126,12 @@ def execute_option(option, menu):
         # Actualizar
         pass
     elif option == 3:
-        delete_code = functions.request_deletion_info(menu)
+        name_table = functions.nameTable(menu)
+        table = dao.listTable(name_table)
+        functions.showTable(table)
+        delete_id = functions.request_deletion_info(table)
+        if not(delete_id == ''):
+            dao.delete(name_table, delete_id)
     elif option == 4:
         name_table = functions.nameTable(menu)
         table = dao.listTable(name_table)
