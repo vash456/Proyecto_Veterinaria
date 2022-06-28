@@ -49,6 +49,22 @@ def request_info(menu):
         
         service = Servicio(servi[0], servi[1], servi[2], servi[3])        
         return 'services', service.addServices()
+    
+def request_deletion_info(menu):
+    # Listar menu
+    pass
+
+def nameTable(menu):
+    if menu == 'cliente':
+        name_table = 'customer'
+    elif menu == 'mascota':
+        name_table = 'pets'
+    elif menu == 'veterinario':
+        name_table = 'veterinarian'
+    else:
+        name_table = 'services'
+    
+    return name_table
 
 def showTable(listTable):
     print("\n" + tabulate(listTable[1:], headers=listTable[0]) + "\n")
