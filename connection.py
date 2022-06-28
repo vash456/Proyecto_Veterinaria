@@ -1,3 +1,4 @@
+from pickle import NONE
 import mysql.connector
 from mysql.connector import Error
 
@@ -15,29 +16,32 @@ class DAO():
         except Error as er:
             print("Error al intentar la conexion: {0}".format(er))
     
-    def listCustomers(self):
+    def listTable(self, name_table):
         if self.connection.is_connected():
             try:
                 cursor = self.connection.cursor()
-                sql = "select * from customer"
-                cursor.execute(sql)
+                sql = "select * from {0}"
+                cursor.execute(sql.format(name_table))
                 query = cursor.fetchall()
                 return query
             except Error as er:
                 print("Error al intentar la conexion: {0}".format(er))
 
-    def registerCustomer(self,customer):
+    def registerData(self, data, sql) -> NONE:
         if self.connection.is_connected():
             try:
                 cursor = self.connection.cursor()
-                sql = """INSERT INTO customer (name, last_name, cc, age, tell, email) 
-                VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}');"""
-                cursor.execute(sql.format(  customer[0], 
-                                            customer[1], 
-                                            customer[2], 
-                                            customer[3], 
-                                            customer[4], 
-                                            customer[5]))
+                # sql = """INSERT INTO customer (name, last_name, cc, age, tell, email) 
+                # VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}');"""
+                # cursor.execute(sql.format(  customer[0], 
+                #                             customer[1], 
+                #                             customer[2], 
+                #                             customer[3], 
+                #                             customer[4], 
+                #                             customer[5]))
+                
+                
+                cursor.execute(sql.format(*data))
                 
                 self.connection.commit()
                 print("Registro guardado\n")
