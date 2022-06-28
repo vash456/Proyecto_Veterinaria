@@ -128,8 +128,9 @@ def execute_option(option, menu):
     elif option == 3:
         delete_code = functions.request_deletion_info(menu)
     elif option == 4:
-        # Listar
-        pass
+        name_table = functions.nameTable(menu)
+        table = dao.listTable(name_table)
+        functions.showTable(table)
     else:
         print("Opción no válida...")
        
