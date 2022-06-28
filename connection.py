@@ -35,6 +35,9 @@ class DAO():
                 sql = "select * from {0}"
                 cursor.execute(sql.format(name_table))
                 query = cursor.fetchall()
+                query = list(query)
+                query.insert(0, list(cursor.column_names))
+                query = tuple(query)
                 return query
             except Error as er:
                 print("Error al intentar la conexion(listTable): {0}".format(er))
