@@ -50,8 +50,18 @@ def request_info(menu):
         service = Servicio(servi[0], servi[1], servi[2], servi[3])        
         return 'services', service.addServices()
     
-def request_deletion_info(menu):
-    # Listar menu
+def request_deletion_info(table):
+    code_exists = False
+    delete_id = int(input("Ingrese el id que desea eliminar: "))
+    for i in table:
+        if i[0] == delete_id:
+            code_exists = True
+            break
+    if not code_exists:
+        delete_id = ''
+    
+    return delete_id
+            
     pass
 
 def nameTable(menu):
