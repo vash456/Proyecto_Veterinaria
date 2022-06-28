@@ -104,7 +104,8 @@ def sub_menu(menu):
                 print("Opción incorrecta, ingrese nuevamente...")
             elif option == 5:
                 continue_menu = False
-                main_menu()
+                break
+                #main_menu()
             else:
                 right_option = True
                 execute_option(option, menu)
