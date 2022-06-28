@@ -95,7 +95,7 @@ def sub_menu(menu):
             print("2. Actualizar {0}".format(menu))
             print("3. Eliminar {0}".format(menu))
             print("4. Listar {0}s".format(menu))
-            print("5. Voler")
+            print("5. Volver")
             print("==========================================\n")
             
             option = int(input("Seleccione una opción: "))

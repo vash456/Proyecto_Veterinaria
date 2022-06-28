@@ -23,13 +23,13 @@ DROP TABLE IF EXISTS `bill`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bill` (
-  `idBill` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `veterinary_name` varchar(45) DEFAULT NULL,
   `customer_name` varchar(45) DEFAULT NULL,
   `service` varchar(45) DEFAULT NULL,
   `total` int DEFAULT NULL,
   `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idBill`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customer` (
-  `idCustomer` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
   `cc` varchar(45) NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE `customer` (
   `email` varchar(45) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idCustomer`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -81,13 +81,12 @@ DROP TABLE IF EXISTS `historical`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `historical` (
-  `idHistorical` int NOT NULL AUTO_INCREMENT,
-  `customer_idCustomer` int NOT NULL,
-  `id_veterinarian` int DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `idServicio` int NOT NULL,
   `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idHistorical`,`customer_idCustomer`),
-  KEY `fk_historical_customer1_idx` (`customer_idCustomer`),
-  CONSTRAINT `fk_historical_customer1` FOREIGN KEY (`customer_idCustomer`) REFERENCES `customer` (`idCustomer`)
+  PRIMARY KEY (`id`,`idServicio`),
+  KEY `fk_historical_service_idx` (`idServicio`),
+  CONSTRAINT `fk_historical_service` FOREIGN KEY (`idServicio`) REFERENCES `services` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -108,7 +107,7 @@ DROP TABLE IF EXISTS `pets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pets` (
-  `idPet` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `species` varchar(45) DEFAULT NULL,
   `age` varchar(45) DEFAULT NULL,
@@ -119,9 +118,9 @@ CREATE TABLE `pets` (
   `customer_idCustomer` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idPet`,`customer_idCustomer`),
+  PRIMARY KEY (`id`,`customer_idCustomer`),
   KEY `fk_pets_customer_idx` (`customer_idCustomer`),
-  CONSTRAINT `fk_pets_customer` FOREIGN KEY (`customer_idCustomer`) REFERENCES `customer` (`idCustomer`)
+  CONSTRAINT `fk_pets_customer` FOREIGN KEY (`customer_idCustomer`) REFERENCES `customer` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -142,16 +141,17 @@ DROP TABLE IF EXISTS `services`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `services` (
-  `idServices` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `description` varchar(200) DEFAULT NULL,
   `price` int DEFAULT NULL,
   `idCustomer` int NOT NULL,
-  `DNI_veterinarian` varchar(45) DEFAULT NULL,
+  `idVeterinarian` int DEFAULT NULL,
   `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idServices`,`idCustomer`),
+  PRIMARY KEY (`id`,`idCustomer`),
   KEY `fk_service_customer_idx` (`idCustomer`),
-  CONSTRAINT `fk_service_customer` FOREIGN KEY (`idCustomer`) REFERENCES `customer` (`idCustomer`)
+  KEY `fk_service_veterinarian_idx` (`idVeterinarian`),
+  CONSTRAINT `fk_service_customer` FOREIGN KEY (`idCustomer`) REFERENCES `customer` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -161,7 +161,7 @@ CREATE TABLE `services` (
 
 LOCK TABLES `services` WRITE;
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
-INSERT INTO `services` VALUES (1,'corte de pelo',10000,2,'123456','2022-06-28 01:36:00','2022-06-28 01:36:00');
+INSERT INTO `services` VALUES (1,'corte de pelo',10000,2,123456,'2022-06-28 01:36:00','2022-06-28 01:36:00');
 /*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,21 +173,21 @@ DROP TABLE IF EXISTS `veterinarian`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `veterinarian` (
-  `idVeterinarian` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
   `cc` varchar(45) DEFAULT NULL,
   `age` varchar(45) DEFAULT NULL,
   `tell` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  `specialty` varchar(45) DEFAULT NULL,
+  `speciality` varchar(45) DEFAULT NULL,
   `salary` varchar(45) DEFAULT NULL,
-  `veterinary_idVeterinary` int NOT NULL,
+  `veterinary_idVeterinary` int NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idVeterinarian`,`veterinary_idVeterinary`),
+  PRIMARY KEY (`id`,`veterinary_idVeterinary`),
   KEY `fk_veterinarian_veterinary1_idx` (`veterinary_idVeterinary`),
-  CONSTRAINT `fk_veterinarian_veterinary1` FOREIGN KEY (`veterinary_idVeterinary`) REFERENCES `veterinary` (`idVeterinary`)
+  CONSTRAINT `fk_veterinarian_veterinary1` FOREIGN KEY (`veterinary_idVeterinary`) REFERENCES `veterinary` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -208,17 +208,14 @@ DROP TABLE IF EXISTS `veterinary`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `veterinary` (
-  `idVeterinary` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `nit` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   `tell` varchar(45) DEFAULT NULL,
   `dir` varchar(45) DEFAULT NULL,
-  `bill_idBill` int NOT NULL,
-  PRIMARY KEY (`idVeterinary`,`bill_idBill`),
-  KEY `fk_veterinary_bill1_idx` (`bill_idBill`),
-  CONSTRAINT `fk_veterinary_bill1` FOREIGN KEY (`bill_idBill`) REFERENCES `bill` (`idBill`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -227,6 +224,7 @@ CREATE TABLE `veterinary` (
 
 LOCK TABLES `veterinary` WRITE;
 /*!40000 ALTER TABLE `veterinary` DISABLE KEYS */;
+INSERT INTO `veterinary` VALUES (1,'Veterinaria Uchiha','902156789-2','veterinaria_uchiha@gmail.com','3101234556','calle falsa 123');
 /*!40000 ALTER TABLE `veterinary` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -239,4 +237,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-27 21:18:06
+-- Dump completed on 2022-06-28 17:42:38
