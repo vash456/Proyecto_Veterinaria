@@ -123,23 +123,14 @@ def execute_option(option, menu):
         table, dict_register = functions.request_info(menu)
         dao.register(table, dict_register)
     elif option == 2:
-        try:
-            menu = "mascota"
-            sub_menu(menu)
-        except:
-            print("Ocurrió un error...")  
+        # Actualizar
+        pass
     elif option == 3:
-        try:
-            menu = "veterinario"
-            sub_menu(menu)
-        except:
-            print("Ocurrió un error...")
+        # Eliminar
+        pass
     elif option == 4:
-        try:
-            menu = "servicio"
-            sub_menu(menu)
-        except:
-            print("Ocurrió un error...")
+        # Listar
+        pass
     else:
         print("Opción no válida...")
        
