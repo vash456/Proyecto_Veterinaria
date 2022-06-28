@@ -52,12 +52,12 @@ class DAO():
                 print("Error al intentar la conexion(Update): {0}".format(er))
                 
     #Eliminar el registro de alguna tabla
-    def delete(self,table, id):
+    def delete(self, name_table:str, id:int):
         if self.connection.is_connected():
             try:
                 cursor = self.connection.cursor()
                 sql = "DELETE FROM {0} WHERE id = {1}"
-                cursor.execute(sql.format(table,id))
+                cursor.execute(sql.format(name_table, id))
                 self.connection.commit()
                 print("Registro eliminado\n")
             except Error as er:
