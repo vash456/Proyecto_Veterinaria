@@ -1,6 +1,7 @@
 from Pet import Pet
 from Servicio import Servicio
 from person import Customer, Veterinarian
+from tabulate import tabulate
 
 def request_info(menu):
     if menu == 'cliente' or menu == 'veterinario':
@@ -48,3 +49,6 @@ def request_info(menu):
         
         service = Servicio(servi[0], servi[1], servi[2], servi[3])        
         return 'services', service.addServices()
+
+def showTable(listTable):
+    print("\n" + tabulate(listTable[1:], headers=listTable[0]) + "\n")
