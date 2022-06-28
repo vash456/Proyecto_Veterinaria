@@ -126,8 +126,7 @@ def execute_option(option, menu):
         # Actualizar
         pass
     elif option == 3:
-        # Eliminar
-        pass
+        delete_code = functions.request_deletion_info(menu)
     elif option == 4:
         # Listar
         pass
