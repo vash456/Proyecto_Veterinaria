@@ -15,4 +15,5 @@ class Pet:
               'weight': self._weight, 'gender': self._gender, 'customer_idCustomer': self._idCustomer}
         
         return(dic)
-       
+    
+    
