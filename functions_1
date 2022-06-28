@@ -1,0 +1,53 @@
+from Pet import Pet
+from Servicio import Servicio
+#from Customer import Customer
+#from Veterinarian import Veterianrian
+
+
+def request_info(menu):
+    if menu == 'cliente' or menu == 'veterinario':
+        customer=[]
+        customer.append(input("Ingrese el nombre: "))
+        customer.append(input("Ingrese el apellido: "))
+        customer.append(input("Ingrese la cédula: "))
+        customer.append(input("Ingrese la edad: "))
+        customer.append(input("Ingrese el teléfono: "))
+        customer.append(input("Ingrese el correo electrónico: "))        
+        
+    if menu == 'cliente':
+        customer=Customer(customer[0],customer[1],customer[2],customer[3],customer[4],customer[5])
+        
+        return 'customer', customer.#nombre de la funcion addCustomer()
+    if menu == 'veterinario':
+        veterinarian=[]
+        veterinarian.append(input("Ingrese la especialidad: "))
+        veterinarian.append(input("Ingrese el salario: "))
+        
+        veterinarian = Veterinarian(veterinarian[0],veterinarian[1])
+        return 'veterinarian', veterinarian.#nombre de la funcion addVeterinarian
+    if menu == 'mascota':
+        mascota=[]
+        mascota.append(input("Ingrese el nombre: "))
+        mascota.append(input("Ingrese la especie: "))
+        mascota.append(input("Ingrese la edad: "))
+        mascota.append(input("Ingrese la raza: "))
+        mascota.append(input("Ingrese el color: "))
+        mascota.append(input("Ingrese el peso: "))
+        mascota.append(input("Ingrese el género: "))
+        mascota.append(int(input("Ingrese el id del dueño: ")))
+        
+        pet=Pet(mascota[0],mascota[1],mascota[2],mascota[3],mascota[4],mascota[5],mascota[6],mascota[7])
+        dic=pet.register_pet()
+        return 'pets', dic
+    
+    if menu == 'servicio':
+        servi=[]
+        servi.append(input("Ingrese la descripción: "))
+        servi.append(int(input("Ingrese el precio: ")))
+        servi.append(int(input("Ingrese el id del cliente: ")))
+        servi.append(input("Ingrese el id del veterinario: "))
+        
+        service=Servicio(servi[0],servi[1],servi[2],servi[3])
+        
+        return 'services', service.addServices()
+        
