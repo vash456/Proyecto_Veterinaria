@@ -9,7 +9,7 @@ class DAO():
                 host = 'localhost',
                 port  = 3306,
                 user = 'root',
-                password = 'Grifo-99',
+                password = '',
                 db = 'db_veterinaria'
             )
         except Error as er:
