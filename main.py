@@ -1,5 +1,5 @@
 from connection import DAO
-import functions_1
+import functions
 
 def main_menu():
     """Display the main menu."""
@@ -7,7 +7,7 @@ def main_menu():
     while continue_main == True:
         right_option_main = False
         while not right_option_main:
-            print("============= MENÚ PRINCIPAL =============")
+            print("\n============= MENÚ PRINCIPAL =============")
             print("1. Clientes")
             print("2. Mascotas")
             print("3. Veterinarios")
@@ -16,7 +16,7 @@ def main_menu():
             print("6. Facturas")
             print("7. Ver información veterinaria")
             print("8. Salir")   
-            print("==========================================")
+            print("==========================================\n")
             
             option_main = int(input("Seleccione una opción: "))
             
@@ -90,13 +90,13 @@ def sub_menu(menu):
     while continue_menu == True:
         right_option = False
         while not right_option:
-            print("============= MENÚ {0}S =============".format(menu.upper()))
+            print("\n============= MENÚ {0}S =============".format(menu.upper()))
             print("1. Registrar {0}".format(menu))
             print("2. Actualizar {0}".format(menu))
             print("3. Eliminar {0}".format(menu))
             print("4. Listar {0}s".format(menu))
             print("5. Voler")
-            print("==========================================")
+            print("==========================================\n")
             
             option = int(input("Seleccione una opción: "))
         
@@ -120,7 +120,7 @@ def execute_option(option, menu):
     dao = DAO()
     
     if option == 1:
-        table, dict_register = functions_1.request_info(menu)
+        table, dict_register = functions.request_info(menu)
         dao.register(table, dict_register)
     elif option == 2:
         # Actualizar
