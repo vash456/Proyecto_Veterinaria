@@ -50,4 +50,3 @@ class Veterinarian(Person):
     # def operate(pet, diagnosis):
     #     pass
     
-  
