@@ -1,42 +1,50 @@
+from Pet import Pet
+from Servicio import Servicio
+from person import Customer, Veterinarian
+
 def request_info(menu):
     if menu == 'cliente' or menu == 'veterinario':
-        name = input("Ingrese el nombre: ")
-        last_name = input("Ingrese el apellido: ")
-        cc = input("Ingrese la cédula: ")
-        age = input("Ingrese la edad: ")
-        tell = input("Ingrese el teléfono: ")
-        email = input("Ingrese el correo electrónico: ")
-    if menu == 'cliente':
-        table = 'customer'
-        customer = {'name': name, 'last_name': last_name, 'cc': cc, 'age': age, 'tell': tell, 'email': email}
-        return table, customer
-    if menu == 'veterinario':
-        speciality = input("Ingrese la especialidad: ")
-        salary = input("Ingrese el salario: ")
-        table = 'veterinarian'
-        veterinarian = {'name': name, 'last_name': last_name, 'cc': cc, 'age': age, 'tell': tell, 'email': email, 
-                        'speciality': speciality, 'salary': salary}
-        return table, veterinarian
-    if menu == 'mascota':
-        name = input("Ingrese el nombre: ")
-        species = input("Ingrese la especie: ")
-        age = input("Ingrese la edad: ")
-        race = input("Ingrese la raza: ")
-        color = input("Ingrese el color: ")
-        weight = input("Ingrese el peso: ")
-        gender = input("Ingrese el género: ")
-        owner = int(input("Ingrese el id del dueño: "))
-        table = 'pets'
-        pet = {'name': name, 'species': species, 'age': age, 'race': race, 'color': color, 'weight': weight,
-               'gender': gender, 'customer_idCustomer': owner}
-        return table, pet
-    if menu == 'servicio':
-        description = input("Ingrese la descripción: ")
-        price = int(input("Ingrese el precio: "))
-        idCustomer = int("Ingrese el id del cliente: ")
-        idVeterinarian = input("Ingrese el id del veterinario: ")
-        table = 'services'
-        service = {'description': description, 'price': price, 'idCustomer': idCustomer,
-                   'idVeterinarian': idVeterinarian}
-        return table, service
+        person = []
+        person.append(input("Ingrese el nombre: "))
+        person.append(input("Ingrese el apellido: "))
+        person.append(input("Ingrese la cédula: "))
+        person.append(input("Ingrese la edad: "))
+        person.append(input("Ingrese el teléfono: "))
+        person.append(input("Ingrese el correo electrónico: "))        
         
+    if menu == 'cliente':
+        customer = Customer(person[0], person[1], person[2], person[3], person[4], person[5])
+        return 'customer', customer.add_customer()
+    
+    if menu == 'veterinario':
+        veterinarian = person
+        veterinarian.append(input("Ingrese la especialidad: "))
+        veterinarian.append(input("Ingrese el salario: "))
+        
+        veterinarian = Veterinarian(veterinarian[0], veterinarian[1], veterinarian[2], veterinarian[3],
+                                    veterinarian[4], veterinarian[5], veterinarian[6], veterinarian[7])
+        return 'veterinarian', veterinarian.add_veterinarian()
+    
+    if menu == 'mascota':
+        mascota = []
+        mascota.append(input("Ingrese el nombre: "))
+        mascota.append(input("Ingrese la especie: "))
+        mascota.append(input("Ingrese la edad: "))
+        mascota.append(input("Ingrese la raza: "))
+        mascota.append(input("Ingrese el color: "))
+        mascota.append(input("Ingrese el peso: "))
+        mascota.append(input("Ingrese el género: "))
+        mascota.append(int(input("Ingrese el id del dueño: ")))
+        
+        pet = Pet(mascota[0], mascota[1], mascota[2], mascota[3], mascota[4], mascota[5], mascota[6], mascota[7])
+        return 'pets', pet.register_pet()
+    
+    if menu == 'servicio':
+        servi=[]
+        servi.append(input("Ingrese la descripción: "))
+        servi.append(int(input("Ingrese el precio: ")))
+        servi.append(int(input("Ingrese el id del cliente: ")))
+        servi.append(int(input("Ingrese el id del veterinario: ")))
+        
+        service = Servicio(servi[0], servi[1], servi[2], servi[3])        
+        return 'services', service.addServices()
