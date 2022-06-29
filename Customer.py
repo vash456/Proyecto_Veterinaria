@@ -11,6 +11,6 @@ class Customer(Person):
         Returns:
             dict: Dictionary with customer's information.
         """
-        dict_data = {'name': self.name, 'last_name': self.last_name, 'cc': self.cc, 'age': self.age,
-               'tell': self.tell, 'email': self.email}
+        dict_data = {'name': self.__name, 'last_name': self.__last_name, 'cc': self.__cc, 'age': self.__age,
+               'tell': self.__tell, 'email': self.__email}
         return dict_data
