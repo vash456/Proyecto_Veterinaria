@@ -1,6 +1,7 @@
 from Pet import Pet
 from Servicio import Servicio
-from person import Customer, Veterinarian
+from Customer import Customer
+from Veterinarian import Veterinarian
 from Bill import Bill
 from tabulate import tabulate
 
