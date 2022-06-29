@@ -7,7 +7,7 @@ class Servicio:
         self._idVeterinarian = idVeterinarian
 
     def addServices(self):
-        dict_data = {'description': self._description, 'price': self._price, 'idCustomer': self._idCustomer,
+        dict_data = {'description_service': self._description, 'price': self._price, 'idCustomer': self._idCustomer,
                      'idVeterinarian': self._idVeterinarian}
         return dict_data
                 

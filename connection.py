@@ -65,3 +65,17 @@ class DAO():
                 print("Registro eliminado\n")
             except Error as er:
                 print("Error al intentar la conexion(delete): {0}".format(er))
+
+    #Consultas especificas a las tablas
+    def customQuery(self, sql):
+        if self.connection.is_connected():
+            try:
+                cursor = self.connection.cursor()
+                cursor.execute(sql)
+                query = cursor.fetchall()
+                query = list(query)
+                query.insert(0, list(cursor.column_names))
+                query = tuple(query)
+                return query
+            except Error as er:
+                print("Error al intentar la conexion(listTable): {0}".format(er))

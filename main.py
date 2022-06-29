@@ -1,3 +1,4 @@
+import Historical
 from connection import DAO
 import functions
 
@@ -64,7 +65,7 @@ def execute_option_main(option_main):
             print("Ocurrió un error...", ex)
     elif option_main == 5:
         try:
-            display_history()
+            submenu_history()
         except:
             print("Ocurrió un error...")
     elif option_main == 6:
@@ -141,8 +142,36 @@ def execute_option(option, menu):
         print("Opción no válida...")
        
  
-def display_history():
-    pass
+def submenu_history():
+    """Display the historical sub-menu."""
+    continue_menu = True
+    while continue_menu == True:
+        right_option = False
+        while not right_option:
+            print("\n============= MENÚ HISTORIAL =============")
+            print("1. Consultar historial por cliente ")
+            print("2. Consultar historial por medico veterinario ")
+            print("3. Volver")
+            print("==========================================\n")
+            
+            option = int(input("Seleccione una opción: "))
+        
+            if option < 1 or option > 3:
+                print("Opción incorrecta, ingrese nuevamente...")
+            elif option == 3:
+                continue_menu = False
+                break
+            else:
+                right_option = True
+                if option == 1:
+                    id = int(input("Ingrese el id del cliente: "))
+                    listHistorical = Historical.queryIdCustomer(id)
+                    functions.showTable(listHistorical)
+                elif option == 2:
+                    id = int(input("Ingrese el id del veterinario: "))
+                    listHistorical = Historical.queryIdVeterinarian(id)
+                    functions.showTable(listHistorical)
+
 
 def display_bill():
     pass
