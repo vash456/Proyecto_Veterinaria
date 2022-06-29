@@ -1,7 +1,5 @@
 import mysql.connector
 from mysql.connector import Error
-from tomlkit import table
-
 
 class DAO():
     def __init__(self):
@@ -74,3 +72,4 @@ class DAO():
                 print("Registro eliminado\n")
             except Error as er:
                 print("Error al intentar la conexion(delete): {0}".format(er))
+                
