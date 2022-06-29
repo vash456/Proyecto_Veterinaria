@@ -9,21 +9,24 @@ class DAO():
                 host = 'localhost',
                 port  = 3306,
                 user = 'root',
-                password = '',
+                password = 'Grifo-99',
                 db = 'db_veterinaria'
             )
         except Error as er:
             print(f"Error al intentar la conexion (connection): {0}".format(er))
     
     #Crear registro dentro de cualquier tabla pasando nombre de tabla, con data en un diccionario   
-    def register(self,table,dict_register):
+    def register(self, table_name, dict_register):
         if self.connection.is_connected():
             try:
                 cursor = self.connection.cursor()
                 sql = """INSERT INTO {0} ({1}) VALUES {2};"""
-                cursor.execute(sql.format(table, ', '.join(tuple(dict_register.keys())), tuple(dict_register.values())))               
+                cursor.execute(sql.format(table_name, ', '.join(tuple(dict_register.keys())), tuple(dict_register.values())))               
                 self.connection.commit()
-                print("Registro guardado\n")
+                if table_name == 'bill':
+                    print("Factura generada\n")
+                else:
+                    print("Registro guardado\n")
             except Error as er:
                 print("Error al intentar la conexion (register): {0}".format(er))
                 

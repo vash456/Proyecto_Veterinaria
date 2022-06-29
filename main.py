@@ -47,36 +47,35 @@ def execute_option_main(option_main):
         try:
             menu = "mascota"
             sub_menu(menu)
-        except:
-            print("Ocurrió un error...")  
+        except Exception as ex:
+            print("Ocurrió un error...", ex)
     elif option_main == 3:
         try:
             menu = "veterinario"
             sub_menu(menu)
-        except:
-            print("Ocurrió un error...")
+        except Exception as ex:
+            print("Ocurrió un error...", ex)
     elif option_main == 4:
         try:
             menu = "servicio"
-            # Generar factura automáticamente
-            sub_menu(menu)            
+            sub_menu(menu)        
         except Exception as ex:
             print("Ocurrió un error...", ex)
     elif option_main == 5:
         try:
             display_history()
-        except:
-            print("Ocurrió un error...")
+        except Exception as ex:
+            print("Ocurrió un error...", ex)
     elif option_main == 6:
         try:
             display_bill()
-        except:
-            print("Ocurrió un error...")
+        except Exception as ex:
+            print("Ocurrió un error...", ex)
     elif option_main == 7:
         try:
             display_vet_info()
-        except:
-            print("Ocurrió un error...")
+        except Exception as ex:
+            print("Ocurrió un error...", ex)
     else:
         print("Opción no válida...")
         
@@ -95,7 +94,7 @@ def sub_menu(menu):
             print("2. Actualizar {0}".format(menu))
             print("3. Eliminar {0}".format(menu))
             print("4. Listar {0}s".format(menu))
-            print("5. Volver")
+            print("5. Voler")
             print("==========================================\n")
             
             option = int(input("Seleccione una opción: "))
@@ -105,7 +104,6 @@ def sub_menu(menu):
             elif option == 5:
                 continue_menu = False
                 break
-                #main_menu()
             else:
                 right_option = True
                 execute_option(option, menu)
@@ -121,8 +119,13 @@ def execute_option(option, menu):
     dao = DAO()
     
     if option == 1:
-        table, dict_register = functions.request_info(menu)
-        dao.register(table, dict_register)
+        table_name, dict_register = functions.request_info(menu)
+        dao.register(table_name, dict_register)
+        if menu == 'servicio':
+            vet_name = dao.listTable('veterinary')[1][1]
+            cust_table = dao.listTable('customer')
+            dict_bill = functions.generate_bill(vet_name, cust_table, dict_register)
+            dao.register('bill', dict_bill)
     elif option == 2:
         # Actualizar
         pass
@@ -139,15 +142,20 @@ def execute_option(option, menu):
         functions.showTable(table)
     else:
         print("Opción no válida...")
-       
- 
+   
 def display_history():
-    pass
+    dao = DAO()
+    table = dao.listTable('historical')
+    functions.showTable(table)
 
 def display_bill():
-    pass
+    dao = DAO()
+    table = dao.listTable('bill')
+    functions.showTable(table)
 
 def display_vet_info():
-    pass
+    dao = DAO()
+    table = dao.listTable('veterinary')
+    functions.showTable(table)
 
 main_menu() 

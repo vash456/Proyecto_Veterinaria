@@ -1,6 +1,7 @@
 from Pet import Pet
 from Servicio import Servicio
 from person import Customer, Veterinarian
+from Bill import Bill
 from tabulate import tabulate
 
 def request_info(menu):
@@ -62,8 +63,6 @@ def request_deletion_info(table):
     
     return delete_id
             
-    pass
-
 def nameTable(menu):
     if menu == 'cliente':
         name_table = 'customer'
@@ -78,3 +77,10 @@ def nameTable(menu):
 
 def showTable(listTable):
     print("\n" + tabulate(listTable[1:], headers=listTable[0]) + "\n")
+
+def generate_bill(vet_name, cust_table, dict_register):
+    id_cust = dict_register['idCustomer']
+    cust_name = [row[1] for row in cust_table if row[0] == id_cust][0]
+    
+    bill = Bill(vet_name, cust_name, dict_register['description'], dict_register['price'])
+    return bill.generate_bill()
