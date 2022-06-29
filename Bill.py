@@ -5,5 +5,8 @@ class Bill:
         self._service = service
         self._total = total
         
-    
+    def generate_bill(self):
+        dict_data = {'veterinary_name': self._veterinary_name, 'customer_name': self._customer_name,
+                     'service': self._service, 'total': self._total}
+        return dict_data
             
