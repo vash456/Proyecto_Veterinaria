@@ -1,5 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
+from tomlkit import table
 
 
 class DAO():
@@ -46,14 +47,19 @@ class DAO():
                 print("Error al intentar la conexion(listTable): {0}".format(er))
 
     #Actualizar el registro de una tabla 
-    def update(self,sql,lista):
+    def update(self, table_name, dict_update, id):
         if self.connection.is_connected():
             try:
                 cursor = self.connection.cursor()
-                cursor.execute(sql.format(*lista))
-                cursor.execute(sql.format(*lista))
+                SET = 'SET '
+                for k,v in dict_update.items():
+                    curr_v = f"'{v}'" if type(v) == str else v
+                    SET += "{0} = {1}, ".format(k, curr_v)
+                SET = SET[:-2] # Remove the last ","
+                sql = """UPDATE {0} {1} WHERE id = {2};"""
+                cursor.execute(sql.format(table_name, SET, id))               
                 self.connection.commit()
-                print("Registro guardado\n")
+                print("Actualización exitosa\n")
             except Error as er:
                 print("Error al intentar la conexion(Update): {0}".format(er))
                 

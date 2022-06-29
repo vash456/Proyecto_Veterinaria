@@ -84,3 +84,53 @@ def generate_bill(vet_name, cust_table, dict_register):
     
     bill = Bill(vet_name, cust_name, dict_register['description'], dict_register['price'])
     return bill.generate_bill()
+
+def update(menu):
+    id = int(input("Ingrese el id que desea actualizar: "))
+    
+    if menu == 'cliente' or menu == 'veterinario':
+        person = []
+        person.append(input("Ingrese el nuevo nombre: "))
+        person.append(input("Ingrese el nuevo apellido: "))
+        person.append(input("Ingrese la nueva cédula: "))
+        person.append(input("Ingrese la nueva edad: "))
+        person.append(input("Ingrese el nuevo teléfono: "))
+        person.append(input("Ingrese el nuevo correo electrónico: "))        
+        
+    if menu == 'cliente':
+        customer = Customer(person[0], person[1], person[2], person[3], person[4], person[5])
+        return customer.add_customer(), id
+    
+    if menu == 'veterinario':
+        veterinarian = person
+        veterinarian.append(input("Ingrese la nueva especialidad: "))
+        veterinarian.append(input("Ingrese el nuevo salario: "))
+        
+        veterinarian = Veterinarian(veterinarian[0], veterinarian[1], veterinarian[2], veterinarian[3],
+                                    veterinarian[4], veterinarian[5], veterinarian[6], veterinarian[7])
+        return veterinarian.add_veterinarian(), id
+    
+    if menu == 'mascota':
+        mascota = []
+        mascota.append(input("Ingrese el nuevo nombre: "))
+        mascota.append(input("Ingrese la nueva especie: "))
+        mascota.append(input("Ingrese la nueva edad: "))
+        mascota.append(input("Ingrese la nueva raza: "))
+        mascota.append(input("Ingrese el nuevo color: "))
+        mascota.append(input("Ingrese el nuevo peso: "))
+        mascota.append(input("Ingrese el nuevo género: "))
+        mascota.append(int(input("Ingrese el nuevo id del dueño: ")))
+        
+        pet = Pet(mascota[0], mascota[1], mascota[2], mascota[3], mascota[4], mascota[5], mascota[6], mascota[7])
+        return pet.register_pet(), id
+    
+    if menu == 'servicio':
+        servi=[]
+        servi.append(input("Ingrese la nueva descripción: "))
+        servi.append(int(input("Ingrese el nuevo precio: ")))
+        servi.append(int(input("Ingrese el nuevo id del cliente: ")))
+        servi.append(int(input("Ingrese el nuevo id del veterinario: ")))
+        
+        service = Servicio(servi[0], servi[1], servi[2], servi[3])        
+        return service.addServices(), id
+    

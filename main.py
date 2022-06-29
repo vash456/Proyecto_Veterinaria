@@ -94,7 +94,7 @@ def sub_menu(menu):
             print("2. Actualizar {0}".format(menu))
             print("3. Eliminar {0}".format(menu))
             print("4. Listar {0}s".format(menu))
-            print("5. Voler")
+            print("5. Volver")
             print("==========================================\n")
             
             option = int(input("Seleccione una opción: "))
@@ -127,8 +127,11 @@ def execute_option(option, menu):
             dict_bill = functions.generate_bill(vet_name, cust_table, dict_register)
             dao.register('bill', dict_bill)
     elif option == 2:
-        # Actualizar
-        pass
+        name_table = functions.nameTable(menu)
+        table = dao.listTable(name_table)
+        functions.showTable(table)
+        dict_update, id = functions.update(menu)
+        dao.update(name_table, dict_update, id)
     elif option == 3:
         name_table = functions.nameTable(menu)
         table = dao.listTable(name_table)
