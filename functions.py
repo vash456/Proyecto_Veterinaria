@@ -83,7 +83,7 @@ def generate_bill(vet_name, cust_table, dict_register):
     id_cust = dict_register['idCustomer']
     cust_name = [row[1] for row in cust_table if row[0] == id_cust][0]
     
-    bill = Bill(vet_name, cust_name, dict_register['description'], dict_register['price'])
+    bill = Bill(vet_name, cust_name, dict_register['description_service'], dict_register['price'])
     return bill.generate_bill()
 
 def update(menu):
