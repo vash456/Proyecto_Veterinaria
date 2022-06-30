@@ -5,11 +5,11 @@ class DAO():
     def __init__(self):
         try:
             self.connection = mysql.connector.connect(
-                host = 'localhost',
-                port  = 3306,
-                user = 'root',
-                password = 'Grifo-99',
-                db = 'db_veterinaria'
+                host = 'us-cdbr-east-06.cleardb.net',
+                # port  = 3306,
+                user = 'b4c643c963e8ea',
+                password = '7a3860bb',
+                db = 'heroku_d2279d5398b8151'
             )
         except Error as er:
             print(f"Error al intentar la conexion (connection): {0}".format(er))
