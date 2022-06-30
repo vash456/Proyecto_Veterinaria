@@ -7,7 +7,7 @@ def queryIdCustomer(id):
                     s.price, 
                     s.idVeterinarian, 
                     CONCAT(v.name, ' ', v.last_name) as veterinarian_name,
-                    s.created_at as date_service
+                    s.create_at as date_service
                 from services s
                 inner join veterinarian v on s.idVeterinarian = v.id
                 where idCustomer = {};"""
@@ -22,7 +22,7 @@ def queryIdVeterinarian(id):
                     s.price, 
                     s.idCustomer, 
                     CONCAT(c.name, ' ', c.last_name) as customer_name, 
-                    s.created_at as date_service
+                    s.create_at as date_service
                 from services s
                 inner join customer c on s.idCustomer = c.id
                 where idVeterinarian = {};"""
