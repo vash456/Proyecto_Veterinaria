@@ -1,18 +1,18 @@
 
 class Pet:
     def __init__(self, name, species, age, race, color, weight, gender,idCustomer):
-        self._name = name 
-        self._species = species 
-        self._age = age 
-        self._race = race 
-        self._color = color 
-        self._weight = weight 
-        self._gender = gender 
-        self._idCustomer = idCustomer
+        self.__name = name 
+        self.__species = species 
+        self.__age = age 
+        self.__race = race 
+        self.__color = color 
+        self.__weight = weight 
+        self.__gender = gender 
+        self.__idCustomer = idCustomer
         
-    def register_pet(self):
-        dic= {'name': self._name, 'species': self._species, 'age': self._age, 'race': self._race, 'color': self._color,
-              'weight': self._weight, 'gender': self._gender, 'customer_idCustomer': self._idCustomer}
+    def register_pet(self):        
+        dic= {'name': self.__name, 'species': self.__species, 'age': self.__age, 'race': self.__race, 'color': self.__color,
+              'weight': self.__weight, 'gender': self.__gender, 'customer_idCustomer': self.__idCustomer}
         
         return(dic)
     
